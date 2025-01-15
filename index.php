@@ -10,13 +10,13 @@
 
 	<!-- Favicons -->
 	 <link rel="icon" href="assets/img/favicon.png">
-	 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+	 <link rel="apple-touch-icon" href="assets/img/GITB Round Logo white.png">
 
 	 <!-- Google Fonts -->
 	 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i">
 
 	 <!-- Vendor CSS Files -->
-	 <link rel="shortcut icon" href="assets/img/ronk1.jpg">
+	 <link rel="shortcut icon" href="./assets/img/GITBRoundLogoblack.png">
 	 <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
 
 	<!-- <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet"> -->
@@ -46,8 +46,8 @@
 					
 					<li class="drop-down"><a href="">Login <i class="bx bxs-arrow-down"></i></a>
 						<ul>
-							<li><a href="adminLogin.php">Administrator</a></li>
-							<li><a href="studentLogin.php">Student</a></li>
+							<li><a href="adminLogin.php" target="_blank">Administrator</a></li>
+							<li><a href="studentLogin.php" target="_blank">Student</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -60,7 +60,7 @@
 
 	<!-- ------------------ MAIN CONTENT / HERO SECTION -------------------- -->
 
-	<section id="hero" class="d-flex justify-content-center align-items-center" style="background-image: url('assets/img/hero-bg.png');">
+	<section id="hero" class="d-flex justify-content-center align-items-center" style="background-image: url('assets/img/2022_06_10_16_06_IMG_0434.JPG');">
 		<div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
 			<h1>GENIUS IT <br> BRAINERY</h1>
 			<h2>UNLEASH BRILLIANCE - IGNITE IMPACT</h2>
@@ -476,11 +476,11 @@
 						<div class="col-lg-2 col-md-6 footer-links">
 							<h4>Our Services</h4>
 							<ul>
-								<li><i class="bx > "></i><a href="#">Service 1</a></li>
-								<li><i class="bx > "></i><a href="#">Service 2</a></li>
-								<li><i class="bx > "></i><a href="#">Service 3</a></li>
-								<li><i class="bx > "></i><a href="#">Service 4</a></li>
-								<li><i class="bx > "></i><a href="#">Service 5</a></li>
+								<li><i class="bx > "></i><a href="#">IT SERVICES</a></li>
+								<li><i class="bx > "></i><a href="#">DATA ANALYSIS</a></li>
+								<li><i class="bx > "></i><a href="#">WEB DEVELOPMENT & APP DEVELOPMENT</a></li>
+								<li><i class="bx > "></i><a href="#">QUICKBOOKS</a></li>
+								<li><i class="bx > "></i><a href="#">PROGRAMMING</a></li>
 							</ul>
 						</div>
 
