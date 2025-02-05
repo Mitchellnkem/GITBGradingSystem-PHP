@@ -12,7 +12,7 @@
 
 ?>
 <!doctype html>
-<html class="no-js" lang="">
+<html class="no-js" lang="en">
 <!--<![endif]-->
 
 <head>
@@ -116,7 +116,7 @@
                                 <div class="card-left pt-1 float-left">
                                     <h3 class="mb-0 fw-r">
                                         <span class="currency float-left mr-1"></span>
-                                        <span class="count"><?php echo $coutAllStudentCourses;?></span>
+                                        <span class="count"><?php echo $countAllStudentCourses;?></span>
                                     </h3>
                                     <p class="text-light mt-1 m-0">Courses</p>
                                 </div><!-- /.card-left -->
