@@ -27,7 +27,7 @@
 
     $fid = intval($_GET['fid']);//gradeId
 
-        $queryss=mysqli_query($con,"select * from tbldepartment where facultyId=".$fid." ORDER BY departmentName ASC");                        
+        $queryss=mysqli_query($conn,"select * from tbldepartment where facultyId=".$fid." ORDER BY departmentName ASC");                        
         $countt = mysqli_num_rows($queryss);
 
         if($countt > 0){                       

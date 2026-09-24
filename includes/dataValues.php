@@ -83,7 +83,7 @@ $countAllUpc = mysqli_num_rows($uppercred);
 $lowercred=mysqli_query($conn,"SELECT * from tblfinalresult WHERE classOfDiploma = 'Lower Credit'"); //lower cred
 $countAlllc = mysqli_num_rows($lowercred);
 
-$justpass=mysqli_query($con,"SELECT * from tblfinalresult WHERE classOfDiploma = 'Pass'"); //just passed
+$justpass=mysqli_query($conn,"SELECT * from tblfinalresult WHERE classOfDiploma = 'Pass'"); //just passed
 $countAlljp = mysqli_num_rows($justpass);
 
 $failed=mysqli_query($conn,"SELECT * from tblfinalresult WHERE classOfDiploma = 'Fail'"); //failed numbers
@@ -102,7 +102,7 @@ $lecCountStaff = mysqli_num_rows($que);
 //-----------------------STUDENT----------------------
 
 $studCourse=mysqli_query($conn,"select * from tblcourse where departmentId = '$departmentId'"); //courses
-$coutAllStudentCourses = mysqli_num_rows($studCourse);
+$countAllStudentCourses = mysqli_num_rows($studCourse);
 
 $queResult=mysqli_query($conn,"select * from tblfinalresult where matricNo = '$matricNo'"); //assigned staff
 $countAllStudResult = mysqli_num_rows($queResult);

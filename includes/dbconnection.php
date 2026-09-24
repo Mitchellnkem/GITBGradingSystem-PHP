@@ -1,17 +1,22 @@
 <?php
-// $conn = new mysqli($mysql_host, $mysql_user, $mysql_pass, $mysql_database)or die('Cannot open database');	
-// $con=mysqli_connect("localhost", "id13019632codeastro.com", "PASS=word@codeastro.com", "id13019632_attendance");
-// $con=mysqli_connect("localhost", "id13019632Geniusit", "PASS=IattendGeniusitBrainery", "id13019632_attendance");
+/**
+ * Central database connection.
+ * Environment variables make deployment possible without editing source files.
+ */
+$dbHost = getenv('GITB_DB_HOST') ?: 'localhost';
+$dbUser = getenv('GITB_DB_USER') ?: 'root';
+$dbPass = getenv('GITB_DB_PASS') ?: '';
+$dbName = getenv('GITB_DB_NAME') ?: 'resultgrading';
 
-$conn=mysqli_connect("localhost", "root", "", "resultgrading");
-if(mysqli_connect_errno()){
-    echo "Connection Fail".mysqli_connect_error(); 
+$conn = mysqli_connect($dbHost, $dbUser, $dbPass, $dbName);
+
+if (!$conn) {
+    error_log('GITB database connection failed: ' . mysqli_connect_error());
+    http_response_code(503);
+    exit('The portal is temporarily unavailable. Please try again shortly.');
 }
 
-    // $conn=mysqli_connect("localhost", "root", "codeastro.com", "amsys");
-    // $conn=mysqli_connect("localhost", "root", "", "amsys");
-    // if(mysqli_connect_errno()){
-    // echo "Connection Fail".mysqli_connect_error();
-    // }
+mysqli_set_charset($conn, 'utf8mb4');
 
-?>
+// Legacy pages used both variable names. Keep the alias while pages are migrated.
+$con = $conn;
