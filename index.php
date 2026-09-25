@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Genius IT Brainery academic grading portal — secure access to courses, results, and academic records.">
     <meta name="theme-color" content="#071e35">
-    <title>GITB Grading | Academic clarity, built in</title>
-    <link rel="icon" href="assets/img/GITBRoundLogoblack.png">
+    <title>BITa Grading | Academic clarity, built in</title>
+    <!-- <link rel="icon" href="assets/img/GITBRoundLogoblack.png"> -->
+    <link rel="icon" href="assets/img/BEANIXCircleBlueLogo.png">
     <link rel="stylesheet" href="assets/vendor/boxicons/css/boxicons.min.css">
     <link rel="stylesheet" href="assets/css/brand.css">
 </head>
 <body>
     <header class="site-header">
         <div class="shell nav-wrap">
-            <a class="brand" href="index.php" aria-label="GITB Grading home">
-                <img src="assets/img/GITBRoundLogowhite.png" alt="Genius IT Brainery">
-                <span>GITB Grading<small>Academic Portal</small></span>
+            <a class="brand" href="index.php" aria-label="BITa Grading home">
+                <img src="assets/img/BEANIXCircleBlueLogo.png" alt="Genius IT Brainery">
+                <span>BITa Grading<small>Academic Portal</small></span>
             </a>
             <button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false"><i class="bx bx-menu"></i></button>
             <nav class="nav-links" aria-label="Main navigation">
@@ -73,7 +74,7 @@
         <section class="cta-band" id="support"><div class="shell cta-inner"><div><h2>Ready to check your progress?</h2><p>Sign in to review your courses, results, and academic standing.</p></div><a class="button secondary" href="studentLogin.php">Open student portal <i class="bx bx-right-arrow-alt"></i></a></div></section>
     </main>
 
-    <footer class="site-footer"><div class="shell footer-row"><div><a class="brand" href="index.php"><img src="assets/img/GITBRoundLogowhite.png" alt=""><span>GITB Grading<small>Academic Portal</small></span></a><span>Unleash brilliance. Ignite impact.</span></div><small>&copy; <?php echo date('Y'); ?> Genius IT Brainery. All rights reserved.</small></div></footer>
+    <footer class="site-footer"><div class="shell footer-row"><div><a class="brand" href="index.php"><img src="assets/img/BEANIXCircleBlueLogo.png" alt=""><span>BEANIX Grading<small>Academic Portal</small></span></a><span>Unleash brilliance. Ignite impact.</span></div><small>&copy; <?php echo date('Y'); ?> Built by Cyb3rch311 | Genius IT Brainery. All rights reserved.</small></div></footer>
     <script src="assets/js/brand.js"></script>
 </body>
 </html>

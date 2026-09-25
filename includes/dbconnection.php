@@ -19,4 +19,4 @@ if (!$conn) {
 mysqli_set_charset($conn, 'utf8mb4');
 
 // Legacy pages used both variable names. Keep the alias while pages are migrated.
-$con = $conn;
+

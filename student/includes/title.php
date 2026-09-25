@@ -1,1 +1,1 @@
-<title>GENIUS IT BRAINERY GRADING <i class="baseline-system_update"></i></title>
+<title>BEANIX INSTITUTE OF TECHNOLOGY AFRICA GRADING <i class="baseline-system_update"></i></title>
