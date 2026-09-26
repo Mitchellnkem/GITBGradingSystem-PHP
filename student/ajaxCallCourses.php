@@ -27,16 +27,21 @@
 include('../includes/dbconnection.php');
 
 // Validate and sanitize input
-$deptId = filter_var($_GET['deptId'], FILTER_VALIDATE_INT);
+$deptId = filter_var(
+    $_GET['deptId'] ?? null,
+    FILTER_VALIDATE_INT,
+    ['options' => ['min_range' => 1]]
+);
 
 // Check if department ID is valid
-if ($deptId === false) {
+if ($deptId === false || $deptId === null) {
+    http_response_code(400);
     echo 'Invalid department ID';
     exit;
 }
 
 // Prepare SQL query
-$query = "SELECT * FROM tblcourse WHERE departmentId = ? ORDER BY courseTitle ASC";
+$query = "SELECT Id, courseTitle FROM tblcourse WHERE departmentId = ? ORDER BY courseTitle ASC";
 
 // Prepare statement
 $stmt = mysqli_prepare($conn, $query);
@@ -53,13 +58,15 @@ $result = mysqli_stmt_get_result($stmt);
 // Check if result is not empty
 if (mysqli_num_rows($result) > 0) {
     // Display course selection
-    echo '<label for="select" class="form-control-label">Course</label>';
-    echo '<select required name="courseId" class="custom-select form-control">';
+    echo '<label for="courseId" class="form-control-label">Course</label>';
+    echo '<select required id="courseId" name="courseId" class="custom-select form-control">';
     echo '<option value="">--Select Course--</option>';
 
     // Loop through courses
-    while ($row = mysqli_fetch_array($result)) {
-        echo '<option value="' . $row['courseId'] . '">' . $row['courseTitle'] . '</option>';
+    while ($row = mysqli_fetch_assoc($result)) {
+        $courseId = htmlspecialchars((string) $row['Id'], ENT_QUOTES, 'UTF-8');
+        $courseTitle = htmlspecialchars($row['courseTitle'], ENT_QUOTES, 'UTF-8');
+        echo '<option value="' . $courseId . '">' . $courseTitle . '</option>';
     }
 
     echo '</select>';

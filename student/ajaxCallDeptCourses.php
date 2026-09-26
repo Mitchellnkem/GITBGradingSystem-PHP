@@ -38,7 +38,7 @@ if ($fid === false) {
 $query = "SELECT Id, departmentName FROM tbldepartment WHERE facultyId = $fid ORDER BY departmentName ASC";
 
 // Execute the query
-$result = mysqli_query($con, $query);
+$result = mysqli_query($conn, $query);
 
 // Check if there are any departments
 if (mysqli_num_rows($result) > 0) {
@@ -59,6 +59,6 @@ if (mysqli_num_rows($result) > 0) {
 }
 
 // Close the connection
-mysqli_close($con);
+mysqli_close($conn);
 
 ?>

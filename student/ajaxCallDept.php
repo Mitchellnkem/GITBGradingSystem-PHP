@@ -38,7 +38,7 @@ if ($facultyId === false) {
 $query = "SELECT * FROM tbldepartment WHERE facultyId = ? ORDER BY departmentName ASC";
 
 // Prepare the statement
-$stmt = mysqli_prepare($con, $query);
+$stmt = mysqli_prepare($conn, $query);
 
 // Bind the faculty ID parameter
 mysqli_stmt_bind_param($stmt, 'i', $facultyId);
@@ -69,6 +69,6 @@ if (mysqli_num_rows($result) > 0) {
 
 // Close the statement and connection
 mysqli_stmt_close($stmt);
-mysqli_close($con);
+mysqli_close($conn);
 
 ?>

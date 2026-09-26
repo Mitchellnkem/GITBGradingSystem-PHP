@@ -60,7 +60,7 @@ $query = "
 ";
 
 // Execute query with prepared statement
-$stmt = mysqli_prepare($con, $query);
+$stmt = mysqli_prepare($conn, $query);
 mysqli_stmt_bind_param($stmt, 'i', $deptId);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);

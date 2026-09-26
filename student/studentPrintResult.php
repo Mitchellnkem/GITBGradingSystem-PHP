@@ -1,6 +1,12 @@
 <?php
-// namespace Dompdf;
-require_once '../dompdf/autoload.inc.php';
+$dompdfAutoloader = __DIR__ . '/../dompdf/autoload.inc.php';
+
+if (!is_file($dompdfAutoloader)) {
+    http_response_code(503);
+    exit('PDF generation is unavailable until Dompdf is installed.');
+}
+
+require_once $dompdfAutoloader;
 ob_start();
 
     include('../includes/dbconnection.php');
@@ -17,20 +23,20 @@ ob_start();
         $semesterId = $_GET['semesterId'];
 
 
-        $stdQuery=mysqli_query($con,"select * from tblstudent where matricNo = '$matricNo'");
+        $stdQuery=mysqli_query($conn,"select * from tblstudent where matricNo = '$matricNo'");
         $rowStd = mysqli_fetch_array($stdQuery);
         $departmentId = $rowStd['departmentId'];
 
-        $semesterQuery=mysqli_query($con,"select * from tblsemester where Id = '$semesterId'");
+        $semesterQuery=mysqli_query($conn,"select * from tblsemester where Id = '$semesterId'");
         $rowSemester = mysqli_fetch_array($semesterQuery);
 
-        $sessionQuery=mysqli_query($con,"select * from tblsession where Id = '$sessionId'");
+        $sessionQuery=mysqli_query($conn,"select * from tblsession where Id = '$sessionId'");
         $rowSession = mysqli_fetch_array($sessionQuery);
 
-        $levelQuery=mysqli_query($con,"select * from tbllevel where Id = '$levelId'");
+        $levelQuery=mysqli_query($conn,"select * from tbllevel where Id = '$levelId'");
         $rowLevel = mysqli_fetch_array($levelQuery);
 
-        $deptQuery=mysqli_query($con,"select * from tbldepartment where Id = '$departmentId'");
+        $deptQuery=mysqli_query($conn,"select * from tbldepartment where Id = '$departmentId'");
         $rowDept = mysqli_fetch_array($deptQuery);
 
     }
@@ -119,7 +125,7 @@ if (isset($_POST['compute'])){
                     <tbody>
             <?php
 
-                $ret=mysqli_query($con,"SELECT tblresult.matricNo,tblresult.levelId,tblresult.courseCode,tblresult.courseUnit,tblresult.score,tblresult.scoreGradePoint,
+                $ret=mysqli_query($conn,"SELECT tblresult.matricNo,tblresult.levelId,tblresult.courseCode,tblresult.courseUnit,tblresult.score,tblresult.scoreGradePoint,
                 tblresult.scoreLetterGrade,tblresult.totalScoreGradePoint,tblresult.dateAdded,tblcourse.courseTitle,
                 tbllevel.levelName,tblsemester.semesterName,tblsession.sessionName
                 from tblresult
@@ -177,7 +183,7 @@ if (isset($_POST['compute'])){
             <tbody>
         <?php
 
-        $ret=mysqli_query($con,"SELECT tblfinalresult.matricNo,tblfinalresult.levelId,tblfinalresult.totalCourseUnit,tblfinalresult.totalScoreGradePoint,tblfinalresult.gpa,
+        $ret=mysqli_query($conn,"SELECT tblfinalresult.matricNo,tblfinalresult.levelId,tblfinalresult.totalCourseUnit,tblfinalresult.totalScoreGradePoint,tblfinalresult.gpa,
         tblfinalresult.classOfDiploma,tblfinalresult.dateAdded,
         tbllevel.levelName,tblsemester.semesterName,tblsession.sessionName
         from tblfinalresult

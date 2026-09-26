@@ -12,7 +12,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <?php include 'includes/title.php';?>
-    <meta name="description" content="Ela Admin - HTML5 Admin Template">
+   
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
@@ -95,22 +95,20 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Faculty</th>
-                                             <th>Date Created</th>
-                                            <th colspan="2">Action</th>
+                                            <th>Date Created</th>
                                         </tr>
                                     </thead>
+                                    <tbody>
                                       
                             <?php
-        $ret=mysqli_query($con,"SELECT * from tblfaculty");
+        $ret = mysqli_query($conn, "SELECT facultyName, dateCreated FROM tblfaculty ORDER BY facultyName ASC");
         $cnt=1;
-        while ($row=mysqli_fetch_array($ret)) {
+        while ($row = mysqli_fetch_assoc($ret)) {
                             ?>
                 <tr>
                 <td><?php echo $cnt;?></td>
-                <td><?php  echo $row['facultyName'];?></td>
-                <td><?php  echo $row['dateCreated'];?></td>
-                <td><a href="editStaff.php?editid=<?php echo $row['staffId'];?>" title="View Full Details"><i class="fa fa-edit fa-1x"></i></a></td>
-                <td><a href="deleteStaff.php?delid=<?php echo $row['staffId'];?>&fid=<?php echo $row['fingerPrintId'];?>" title="Delete Staff Details"><i class="fa fa-trash fa-1x"></i></a></td>
+                <td><?php echo htmlspecialchars($row['facultyName'], ENT_QUOTES, 'UTF-8');?></td>
+                <td><?php echo htmlspecialchars($row['dateCreated'], ENT_QUOTES, 'UTF-8');?></td>
                 </tr>
                 <?php 
                 $cnt=$cnt+1;

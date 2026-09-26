@@ -1,55 +1,16 @@
 <?php
-// namespace Dompdf;
-require_once '../dompdf/autoload.inc.php';
+$dompdfAutoloader = __DIR__ . '/../dompdf/autoload.inc.php';
+
+if (!is_file($dompdfAutoloader)) {
+    http_response_code(503);
+    exit('PDF generation is unavailable until Dompdf is installed.');
+}
+
+require_once $dompdfAutoloader;
+require_once '../includes/dbconnection.php';
+require_once '../includes/session.php';
+
 ob_start();
-
-    include('../includes/dbconnection.php');
-    include('../includes/session.php');
-    include('../includes/functions.php');
-
-
-
-    if(isset($_GET['matricNo']) && isset($_GET['levelId'])  && isset($_GET['sessionId']) && isset($_GET['semesterId'])){
-
-        $matricNo = $_GET['matricNo'];
-        $levelId = $_GET['levelId'];
-        $sessionId = $_GET['sessionId'];
-        $semesterId = $_GET['semesterId'];
-
-
-        $stdQuery=mysqli_query($con,"select * from tblstudent where matricNo = '$matricNo'");
-        $rowStd = mysqli_fetch_array($stdQuery);
-        $departmentId = $rowStd['departmentId'];
-
-        $semesterQuery=mysqli_query($con,"select * from tblsemester where Id = '$semesterId'");
-        $rowSemester = mysqli_fetch_array($semesterQuery);
-
-        $sessionQuery=mysqli_query($con,"select * from tblsession where Id = '$sessionId'");
-        $rowSession = mysqli_fetch_array($sessionQuery);
-
-        $levelQuery=mysqli_query($con,"select * from tbllevel where Id = '$levelId'");
-        $rowLevel = mysqli_fetch_array($levelQuery);
-
-        $deptQuery=mysqli_query($con,"select * from tbldepartment where Id = '$departmentId'");
-        $rowDept = mysqli_fetch_array($deptQuery);
-
-    }
-    else{
-        echo "<script type = \"text/javascript\">
-        window.location = (\"studentList3.php\");
-        </script>";
-    }
-
-
-
-//------------------------------------ COMPUTE RESULT -----------------------------------------------
-
-if (isset($_POST['compute'])){
-
-
-}//end of POST
-
-
 ?>
 
 
@@ -60,7 +21,7 @@ if (isset($_POST['compute'])){
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <?php include 'includes/title.php';?>
-    <meta name="description" content="Ela Admin - HTML5 Admin Template">
+    <meta name="description" content="Cyb3rchell - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
@@ -206,26 +167,20 @@ if (isset($_POST['compute'])){
         $(document).ready(function() {
           $('#bootstrap-data-table-export').DataTable();
       } );
+
   </script>
 
 </body>
 </html>
 <?php
 
-// reference the Dompdf namespace
 use Dompdf\Dompdf;
+
 $html = ob_get_clean();
-// instantiate and use the dompdf class
 $dompdf = new Dompdf();
 $dompdf->loadHtml($html);
-
-// (Optional) Setup the paper size and orientation
 $dompdf->setPaper('A4', 'landscape');
-
-// Render the HTML as PDF
 $dompdf->render();
-
-// Output the generated PDF to Browser
 $dompdf->stream('Grading_Criteria');
 
 ?>

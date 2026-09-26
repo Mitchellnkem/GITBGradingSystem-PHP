@@ -3,8 +3,25 @@
 
     include('../includes/dbconnection.php');
     include('../includes/session.php');
-    include('../includes/dataValues.php');
-    error_reporting(0);
+
+    $departmentId = 0;
+    $departmentName = 'your department';
+    $departmentStmt = mysqli_prepare(
+        $conn,
+        'SELECT student.departmentId, department.departmentName
+         FROM tblstudent AS student
+         LEFT JOIN tbldepartment AS department ON department.Id = student.departmentId
+         WHERE student.matricNo = ?
+         LIMIT 1'
+    );
+    mysqli_stmt_bind_param($departmentStmt, 's', $matricNo);
+    mysqli_stmt_execute($departmentStmt);
+    $department = mysqli_fetch_assoc(mysqli_stmt_get_result($departmentStmt));
+
+    if ($department) {
+        $departmentId = (int) $department['departmentId'];
+        $departmentName = $department['departmentName'] ?: $departmentName;
+    }
    
 
    
@@ -137,7 +154,7 @@ function showValues(str) {
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title"><h3 align="center">All <?php echo $departmentName;?> Student</h3></strong>
+                                <strong class="card-title"><h3 align="center">Students in <?php echo htmlspecialchars($departmentName, ENT_QUOTES, 'UTF-8');?></h3></strong>
                             </div>
                             <div class="card-body">
                                 <table id="bootstrap-data-table" class="table table-hover table-striped table-bordered">
@@ -150,32 +167,36 @@ function showValues(str) {
                                             <th>Faculty</th>
                                             <th>Department</th>
                                             <th>Date Added</th>
-                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                       
                             <?php
-                    $ret=mysqli_query($con,"SELECT tblstudent.Id, tblstudent.firstName, tblstudent.lastName, tblstudent.otherName,tblstudent.matricNo,
-                    tblstudent.dateCreated, tbllevel.levelName,tblfaculty.facultyName,tbldepartment.departmentName
-                    from tblstudent
-                    INNER JOIN tbllevel ON tbllevel.Id = tblstudent.levelId
-                    INNER JOIN tblfaculty ON tblfaculty.Id = tblstudent.facultyId
-                    INNER JOIN tbldepartment ON tbldepartment.Id = tblstudent.departmentId
-                    where tbldepartment.Id='$departmentId'");
+                    $stmt = mysqli_prepare(
+                        $conn,
+                        'SELECT student.firstName, student.lastName, student.otherName, student.matricNo,
+                                student.dateCreated, level.levelName, faculty.facultyName, department.departmentName
+                         FROM tblstudent AS student
+                         INNER JOIN tbllevel AS level ON level.Id = student.levelId
+                         INNER JOIN tblfaculty AS faculty ON faculty.Id = student.facultyId
+                         INNER JOIN tbldepartment AS department ON department.Id = student.departmentId
+                         WHERE department.Id = ?
+                         ORDER BY student.firstName ASC, student.lastName ASC'
+                    );
+                    mysqli_stmt_bind_param($stmt, 'i', $departmentId);
+                    mysqli_stmt_execute($stmt);
+                    $ret = mysqli_stmt_get_result($stmt);
                     $cnt=1;
-                    while ($row=mysqli_fetch_array($ret)) {
+                    while ($row = mysqli_fetch_assoc($ret)) {
                                         ?>
                     <tr>
                     <td><?php echo $cnt;?></td>
-                    <td><?php  echo $row['firstName'].' '.$row['lastName'].' '.$row['otherName'];?></td>
-                    <td><?php  echo $row['matricNo'];?></td>
-                    <td><?php  echo $row['levelName'];?></td>
-                    <td><?php  echo $row['facultyName'];?></td>
-                    <td><?php  echo $row['departmentName'];?></td>
-                    <td><?php  echo $row['dateCreated'];?></td>
-                    <td><a href="editStudent.php?editStudentId=<?php echo $row['matricNo'];?>" title="Edit Details"><i class="fa fa-edit fa-1x"></i></a>
-                    <a onclick="return confirm('Are you sure you want to delete?')" href="deleteStudent.php?delid=<?php echo $row['matricNo'];?>" title="Delete Student Details"><i class="fa fa-trash fa-1x"></i></a></td>
+                    <td><?php echo htmlspecialchars(trim($row['firstName'].' '.$row['lastName'].' '.$row['otherName']), ENT_QUOTES, 'UTF-8');?></td>
+                    <td><?php echo htmlspecialchars($row['matricNo'], ENT_QUOTES, 'UTF-8');?></td>
+                    <td><?php echo htmlspecialchars($row['levelName'], ENT_QUOTES, 'UTF-8');?></td>
+                    <td><?php echo htmlspecialchars($row['facultyName'], ENT_QUOTES, 'UTF-8');?></td>
+                    <td><?php echo htmlspecialchars($row['departmentName'], ENT_QUOTES, 'UTF-8');?></td>
+                    <td><?php echo htmlspecialchars($row['dateCreated'], ENT_QUOTES, 'UTF-8');?></td>
                     </tr>
                     <?php 
                     $cnt=$cnt+1;

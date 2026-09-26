@@ -97,26 +97,30 @@
                                             <th>Faculty</th>
                                             <th>Department</th>
                                             <th>Date Created</th>
-                                            <th colspan="2">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                       
                             <?php
-        $ret=mysqli_query($con,"SELECT tbldepartment.departmentName,tbldepartment.dateCreated, tblfaculty.facultyName
-        from tbldepartment 
-        INNER JOIN tblfaculty ON tblfaculty.Id = tbldepartment.facultyId
-        where facultyId = '$facultyId'");
+        $stmt = mysqli_prepare(
+            $conn,
+            'SELECT department.departmentName, department.dateCreated, faculty.facultyName
+             FROM tbldepartment AS department
+             INNER JOIN tblfaculty AS faculty ON faculty.Id = department.facultyId
+             WHERE department.facultyId = ?
+             ORDER BY department.departmentName ASC'
+        );
+        mysqli_stmt_bind_param($stmt, 'i', $facultyId);
+        mysqli_stmt_execute($stmt);
+        $ret = mysqli_stmt_get_result($stmt);
         $cnt=1;
-        while ($row=mysqli_fetch_array($ret)) {
+        while ($row = mysqli_fetch_assoc($ret)) {
                             ?>
                 <tr>
                 <td><?php echo $cnt;?></td>
-                <td><?php  echo $row['facultyName'];?></td>
-                <td><?php  echo $row['departmentName'];?></td>
-                <td><?php  echo $row['dateCreated'];?></td>
-                <td><a href="editStaff.php?editid=<?php echo $row['staffId'];?>" title="View Full Details"><i class="fa fa-edit fa-1x"></i></a></td>
-                <td><a href="deleteStaff.php?delid=<?php echo $row['staffId'];?>&fid=<?php echo $row['fingerPrintId'];?>" title="Delete Staff Details"><i class="fa fa-trash fa-1x"></i></a></td>
+                <td><?php echo htmlspecialchars($row['facultyName'], ENT_QUOTES, 'UTF-8');?></td>
+                <td><?php echo htmlspecialchars($row['departmentName'], ENT_QUOTES, 'UTF-8');?></td>
+                <td><?php echo htmlspecialchars($row['dateCreated'], ENT_QUOTES, 'UTF-8');?></td>
                 </tr>
                 <?php 
                 $cnt=$cnt+1;

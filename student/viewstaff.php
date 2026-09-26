@@ -100,32 +100,30 @@
                                             <th>Othername</th>
                                             <th>EmailAddress</th>
                                             <th>Contact</th>
-                                            <th>Position</th>
                                             <th>Date Added</th>
-                                            <th colspan="2">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                       
                             <?php
-        $ret=mysqli_query($con,"SELECT tblstaff.staffId, tblstaff.firstName, tblstaff.lastName, tblstaff.otherName,tblstaff.emailAddress, tblstaff.phoneNo, tblstaff.dateCreated,tblroles.roleName
-        from tblstaff 
-        INNER JOIN tblroles ON tblroles.Id = tblstaff.roleId");
+        $ret = mysqli_query(
+            $conn,
+            'SELECT staffId, firstName, lastName, otherName, emailAddress, phoneNo, dateCreated
+             FROM tblstaff
+             ORDER BY firstName ASC, lastName ASC'
+        );
         $cnt=1;
-        while ($row=mysqli_fetch_array($ret)) {
+        while ($row = mysqli_fetch_assoc($ret)) {
                             ?>
                 <tr>
                 <td><?php echo $cnt;?></td>
-                <td><?php  echo $row['staffId'];?></td>
-                <td><?php  echo $row['firstName'];?></td>
-                <td><?php  echo $row['lastName'];?></td>
-                <td><?php  echo $row['otherName'];?></td>
-                <td><?php  echo $row['emailAddress'];?></td>
-                <td><?php  echo $row['phoneNo'];?></td>
-                <td><?php  echo $row['roleName'];?></td>
-                <td><?php  echo $row['dateCreated'];?></td>
-                <td><a href="editStaff.php?editid=<?php echo $row['staffId'];?>" title="View Full Details"><i class="fa fa-edit fa-1x"></i></a></td>
-                <td><a href="deleteStaff.php?delid=<?php echo $row['staffId'];?>&fid=<?php echo $row['fingerPrintId'];?>" title="Delete Staff Details"><i class="fa fa-trash fa-1x"></i></a></td>
+                <td><?php echo htmlspecialchars($row['staffId'], ENT_QUOTES, 'UTF-8');?></td>
+                <td><?php echo htmlspecialchars($row['firstName'], ENT_QUOTES, 'UTF-8');?></td>
+                <td><?php echo htmlspecialchars($row['lastName'], ENT_QUOTES, 'UTF-8');?></td>
+                <td><?php echo htmlspecialchars($row['otherName'], ENT_QUOTES, 'UTF-8');?></td>
+                <td><?php echo htmlspecialchars($row['emailAddress'], ENT_QUOTES, 'UTF-8');?></td>
+                <td><?php echo htmlspecialchars($row['phoneNo'], ENT_QUOTES, 'UTF-8');?></td>
+                <td><?php echo htmlspecialchars($row['dateCreated'], ENT_QUOTES, 'UTF-8');?></td>
                 </tr>
                 <?php 
                 $cnt=$cnt+1;
